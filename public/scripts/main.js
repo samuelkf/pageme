@@ -14,7 +14,7 @@ $(document).ready(function(){
     $.ajax({
       type: $(this).attr("method"),
       url: $(this).attr("action"),
-      data: $('form.register').serialize(),
+      data: $(this).serialize(),
       success: function(){
         $(".form_container").append("<p>message sent</p>")
       },
