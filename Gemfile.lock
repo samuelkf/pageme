@@ -3,6 +3,8 @@ GEM
   specs:
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
+    haml (4.0.7)
+      tilt
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     mechanize (2.7.4)
@@ -21,6 +23,15 @@ GEM
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     ntlm-http (0.1.1)
+    rack (1.6.4)
+    rack-protection (1.5.3)
+      rack
+    sass (3.4.21)
+    sinatra (1.4.7)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
+    tilt (2.0.2)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
@@ -30,7 +41,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   mechanize
+  sass
+  sinatra
 
 BUNDLED WITH
    1.11.2

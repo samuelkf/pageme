@@ -1,0 +1,5 @@
+=haml :header
+%form{:action => "/sendmessage", :method => "post"}
+  %input{:type => "text", :name => "message", :class => "message", :autofocus => "autofocus", :placeholder => "type"}
+  %p{:class => "counter"} 240
+  %input{:type => "submit", :class => "send", :value => "send⏎"}
