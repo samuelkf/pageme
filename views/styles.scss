@@ -13,8 +13,10 @@ h1 {
 }
 
 p {
-  font-size: $typesize;
+    font-size: $typesize;
 }
+
+p.fyi { font-size: 1em; }
 
 .counter, .send { display: inline; }
 
@@ -38,5 +40,6 @@ p {
   font-size: $typesize;
   border: none;
 	color: #cc33ff;
+  background-color: transparent;
   float: right;
 }
