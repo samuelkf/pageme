@@ -1,9 +1,11 @@
 $typesize: 6em;
+$typecolour: white;
 
 body {
   font-family: sans-serif;
-  color: #cc33ff;
+  color: $typecolour;
   padding: 0.1em;
+  background-color: black;
 }
 
 h1 {
@@ -28,8 +30,9 @@ p.fyi { font-size: 1em; }
   width: 100%;
   font-size: $typesize;
   border: none;
-  color: #cc33ff;
+  color: $typecolour;
   margin-bottom: 0.3em;
+  background-color: transparent;
 }
 
 .counter {
@@ -38,8 +41,15 @@ p.fyi { font-size: 1em; }
 
 .send {
   font-size: $typesize;
+  padding: 0;
+  margin-top: -0.1em;
   border: none;
-	color: #cc33ff;
+	color: $typecolour;
   background-color: transparent;
   float: right;
+  cursor: pointer;
+}
+
+@media (max-width: 490px) {
+  .send { float: none; }
 }
