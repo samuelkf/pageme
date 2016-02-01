@@ -9,7 +9,7 @@ get '/styles.css' do
 end
 
 get '/' do
-  @title = 'page me'
+  @title = 'page me 📟'
   haml :form
 end
 
