@@ -15,6 +15,8 @@ end
 
 post '/sendmessage' do
 
+  ENV.each { |var| puts var }
+
   # Create an instance of Mechanize and set the UA string.
   agent = Mechanize.new
   agent.user_agent_alias = 'Windows IE 11'
@@ -22,7 +24,7 @@ post '/sendmessage' do
   # Enter the pager number into the first form and submit
   page = agent.get ('http://www.paging.vodafone.net/login.jsp')
   form1 = page.form('formSendMessage1')
-  form1.to_string = "***REMOVED***"
+  form1.to_string = ENV['PAGER_NUMBER']
   page = agent.submit(form1)
 
   # Enter the message into the second page and submit
@@ -46,7 +48,7 @@ post '/sendmessage' do
       req = Net::HTTP::Post.new(url.path)
       req.set_form_data({
         :token => "***REMOVED***",
-        :user => "***REMOVED***",
+        :user => ENV['PUSHOVER_USER_KEY'],
         :message => params[:message_text].to_s,
       })
       res = Net::HTTP.new(url.host, url.port)
@@ -55,7 +57,7 @@ post '/sendmessage' do
       res.start {|http| http.request(req) }
 
       # Trigger an IFTTT event
-      url = URI.parse("https://maker.ifttt.com/trigger/pageme_message_sent/with/key/***REMOVED***")
+      url = URI.parse("https://maker.ifttt.com/trigger/pageme_message_sent/with/key/#{ENV['IFTTT_MAKER_KEY']}")
       req = Net::HTTP::Post.new(url.path)
       req.set_form_data({
         :value1 => params[:message_text].to_s,
