@@ -15,10 +15,18 @@ h1 {
 }
 
 p {
-    font-size: $typesize;
+  font-size: $typesize;
 }
 
-p.fyi { font-size: 2em; }
+a, a:visited {
+  color: $typecolour;
+  text-decoration: underline;
+}
+
+p.fyi {
+  font-size: 2em;
+  font-style: italic;
+}
 
 .counter, .send { display: inline; }
 
