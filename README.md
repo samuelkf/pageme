@@ -1,5 +1,5 @@
 # pageme
-#### A simple sinatra app for sending messages to my pager
+#### A sinatra application for sending messages to my pager
 
 This has a fairly specific use case. I very much doubt that it will be of use to anyone :-)
 
