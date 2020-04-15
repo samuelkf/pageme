@@ -4,7 +4,7 @@
 This has a fairly specific use case. I very much doubt that it will be of use to anyone :-)
 
 The app presents a simple text input field where a message can be entered.
-Messages submitted through the form are fed into Vodafone's online pager portal using Mechanize. Notifications are sent to Pushover and an IFTTT trigger is called. I have the IFTTT trigger configured to log the details of the incoming message to a Google sheet.
+Messages submitted through the form are sent to my pager via DAPNET.
 
 ## Running it
 
@@ -12,9 +12,11 @@ This is designed to run on Heroku and can be run locally using `heroku local`.
 
 The app requires some environment variables to be configured:
 
-- `PAGER_NUMBER` The number that you want to page (this must be a Vodafone UK contract pager)
-- `PUSHOVER_USER_KEY` Your Pushover user key
-- `PUSHOVER_APP_TOKEN` Your Pushover app token
-- `IFTTT_MAKER_KEY` Your IFTTT Maker key
+- `DAPNET_USER` Username for DAPNET API
+- `DAPNET_PASS` Password for DAPNET API
+- `DEST_CALLSIGN` Destination callsign for messages
+- `TRANSMITTER_GROUP` Dapnet transmitter group
+- `PUSHOVER_APP_TOKEN` Pushover app token
+- `PUSHOVER_USER_KEY` Pushover user key
 
 Set these for the Heroku app using `heroku config:set` and locally by adding them to a `.env` file.
