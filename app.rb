@@ -1,7 +1,6 @@
 require 'sinatra'
 require 'haml'
 require 'json'
-require 'mechanize'
 require 'net/https'
 
 get '/styles.css' do 
@@ -15,28 +14,38 @@ end
 
 post '/sendmessage' do
 
-  ENV.each { |var| puts var }
-
-  # Create an instance of Mechanize and set the UA string.
-  agent = Mechanize.new
-  agent.user_agent_alias = 'Windows IE 11'
-
-  # Enter the pager number into the first form and submit
-  page = agent.get ('http://www.paging.vodafone.net/login.jsp')
-  form1 = page.form('formSendMessage1')
-  form1.to_string = ENV['PAGER_NUMBER']
-  page = agent.submit(form1)
-
-  # Enter the message into the second page and submit
-  form2 = page.form('sendmessage')
-  form2.mesg_to_send = params[:message_text].to_s
-  page = agent.submit(form2)
-
-  # Return a success/failure status based on the content of Vodafone's confirmation page
-  content_type :json
   return_message = {}
 
-  if page.search("Message successfully sent")
+  ENV.each { |var| puts var }
+
+  message_text = params[:message_text].to_s
+
+  # Make a request to the DAPNET API
+
+  uri = URI.parse('https://hampager.de/api/calls')
+  
+  header = {'Content-Type': 'application/json'}
+  call = {
+    'text': message_text,
+    'callSignNames': [ENV['DEST_CALLSIGN']], 
+    'transmitterGroupNames': [ENV['TRANSMITTER_GROUP']], 
+    'emergency': false
+  }
+
+  # Create the HTTP objects
+  https = Net::HTTP.new(uri.host, uri.port)
+  https.use_ssl = true
+  request = Net::HTTP::Post.new(uri.request_uri, header)
+  request.basic_auth(ENV['DAPNET_USER'], ENV['DAPNET_PASS'])
+  request.body = call.to_json
+  
+  # Send the request
+  response = https.request(request)
+
+  p response.code
+  p response.body
+
+  if response.code == '201'
 
     return_message[:status] = 'success'
 
@@ -47,7 +56,7 @@ post '/sendmessage' do
       url = URI.parse("https://api.pushover.net/1/messages.json")
       req = Net::HTTP::Post.new(url.path)
       req.set_form_data({
-        :token => "***REMOVED***",
+        :token => ENV['PUSHOVER_APP_TOKEN'],
         :user => ENV['PUSHOVER_USER_KEY'],
         :message => params[:message_text].to_s,
       })
