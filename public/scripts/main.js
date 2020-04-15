@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var characters = 240;
+  var characters = 80;
   $(".message_text").keyup(function(){
     var remaining = characters -  $(this).val().length;
     $(".counter").html(remaining);
