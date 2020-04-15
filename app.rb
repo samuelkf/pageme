@@ -64,18 +64,6 @@ post '/sendmessage' do
       res.use_ssl = true
       res.verify_mode = OpenSSL::SSL::VERIFY_PEER
       res.start {|http| http.request(req) }
-
-      # Trigger an IFTTT event
-      url = URI.parse("https://maker.ifttt.com/trigger/pageme_message_sent/with/key/#{ENV['IFTTT_MAKER_KEY']}")
-      req = Net::HTTP::Post.new(url.path)
-      req.set_form_data({
-        :value1 => params[:message_text].to_s,
-        :value2 => request.ip
-      })
-      res = Net::HTTP.new(url.host, url.port)
-      res.use_ssl = true
-      res.verify_mode = OpenSSL::SSL::VERIFY_PEER
-      res.start {|http| http.request(req) }
     end
 
   else
